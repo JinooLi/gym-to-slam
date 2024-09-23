@@ -22,19 +22,21 @@ class GymToSlam(Node):
 
     def odom_callback(self, msg):
         br = TransformBroadcaster(self)
-        t = TransformStamped()
+        t1 = TransformStamped()
 
-        t.header.stamp = self.get_clock().now().to_msg()
-        t.header.frame_id = 'odom_frame'
-        t.child_frame_id = 'base_link'
+        t1.header.stamp = self.get_clock().now().to_msg()
+        t1.header.frame_id = 'odom_frame'
+        t1.child_frame_id = 'base_link'
 
-        t.transform.translation.x = msg.pose.pose.position.x
-        t.transform.translation.y = msg.pose.pose.position.y
-        t.transform.translation.z = msg.pose.pose.position.z
+        t1.transform.translation.x = msg.pose.pose.position.x
+        t1.transform.translation.y = msg.pose.pose.position.y
+        t1.transform.translation.z = msg.pose.pose.position.z
 
-        t.transform.rotation.x = msg.pose.pose.orientation.x
-        t.transform.rotation.y = msg.pose.pose.orientation.y
-        t.transform.rotation.z = msg.pose.pose.orientation.z
-        t.transform.rotation.w = msg.pose.pose.orientation.w
+        t1.transform.rotation.x = msg.pose.pose.orientation.x
+        t1.transform.rotation.y = msg.pose.pose.orientation.y
+        t1.transform.rotation.z = msg.pose.pose.orientation.z
+        t1.transform.rotation.w = msg.pose.pose.orientation.w
 
-        br.sendTransform(t)
+        t2 = TransformStamped()
+
+        br.sendTransform(t1)
